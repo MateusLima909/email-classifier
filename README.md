@@ -80,5 +80,4 @@ A aplicação estará disponível em `http://127.0.0.1:5000`.
 
 ## 👨‍💻 Desenvolvido por
 
-* **[Mateus Lima] (www.linkedin.com/in/mateuslima-santos)**
-* **GitHub:** [@MateusLima909](https://github.com/MateusLima909)
+* **[Mateus Lima](www.linkedin.com/in/mateuslima-santos)**
