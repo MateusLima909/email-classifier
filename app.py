@@ -4,28 +4,19 @@ import io
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
 import PyPDF2
-from openai import OpenAI
+import google.generativeai as genai
 
 app = Flask(__name__)
 
 load_dotenv()
 API_TOKEN = os.getenv("HF_API_TOKEN")
-
-print(f"!!! DEBUG: Minha chave de API carregada é: {API_TOKEN} !!!")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 CLASSIFICATION_API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
-GENERATION_API_URL = "https://api-inference.huggingface.co/models/google/gemma-2b-it"
-
 headers = {"Authorization": f"Bearer {API_TOKEN}"}
 
 def query_api(payload, url):
     response = requests.post(url, headers=headers, json=payload)
-
-    print(f"--- DEBUG DA API ---")
-    print(f"URL Chamada: {url}")
-    print(f"Status da Resposta: {response.status_code}")
-    print(f"Conteúdo da Resposta: {response.text}")
-    print(f"--- FIM DO DEBUG ---")
 
     try:
         return response.json()
@@ -50,31 +41,30 @@ def generate_response(classification, email_text):
         return "Nenhuma resposta sugerida para e-mails que não necessitam de uma resposta de ação."
 
     try:
-        # Pega a chave da OpenAI do ambiente e cria o cliente
-        client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        api_key = os.getenv("GOOGLE_API_KEY")
+        if not api_key:
+            return "Erro: A chave da API do Google não foi encontrada no arquivo .env"
 
-        # Este é o prompt otimizado para os modelos da OpenAI
-        system_prompt = "Você é um assistente prestativo que escreve respostas profissionais e concisas para emails, em português do Brasil."
-        user_prompt = f"Com base no email abaixo, escreva uma sugestão de resposta curta e educada:\n\n---\n{email_text}\n---"
+        genai.configure(api_key=api_key)
 
-        # Faz a chamada para a API do ChatGPT
-        completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",  # Modelo rápido e eficiente
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
-            ],
-            max_tokens=150,
-            temperature=0.5
-        )
+        model = genai.GenerativeModel('gemini-1.0-pro')
 
-        # Retorna o conteúdo da resposta da IA
-        return completion.choices[0].message.content.strip()
+        prompt = f"""Com base no seguinte email, classificado como 'Produtivo', escreva uma sugestão de resposta profissional, curta e educada em português do Brasil.
+
+Email:
+---
+{email_text}
+---
+
+Sugestão de Resposta:"""
+
+        response = model.generate_content(prompt)
+        
+        return response.text.strip()
 
     except Exception as e:
-        # Se algo der errado (chave inválida, etc.), retorna uma mensagem de erro clara
-        print(f"Erro ao chamar a API da OpenAI: {e}")
-        return f"Ocorreu um erro ao conectar com a IA da OpenAI: {e}"
+        print(f"Erro ao chamar a API do Google Gemini: {e}")
+        return f"Ocorreu um erro ao conectar com a IA do Google: {e}"
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
