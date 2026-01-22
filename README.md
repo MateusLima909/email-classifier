@@ -1,10 +1,10 @@
-# 🚀 Classificador de Emails com IA - Desafio AutoU
+# 🚀 Email Classifier with AI
 
 ## 📋 Sobre o Projeto
 
-Este projeto foi desenvolvido como parte do processo seletivo para a vaga de estágio em Desenvolvimento na **AutoU**. O desafio consiste em criar uma aplicação web que utiliza Inteligência Artificial para classificar o conteúdo de emails em "Produtivo" ou "Improdutivo" e, com base nessa classificação, sugerir uma resposta automática adequada.
+O Email Classifier with AI é uma aplicação web que utiliza Inteligência Artificial para classificar emails como Produtivos ou Improdutivos e gerar automaticamente sugestões de resposta, de acordo com o contexto do email.
 
-A aplicação foi construída com foco em uma experiência de usuário limpa, moderna e intuitiva, demonstrando a capacidade de resolver um problema real de forma simples e eficiente através da tecnologia.
+O projeto foi desenvolvido com foco em resolver um problema real do dia a dia corporativo: triagem de emails e ganho de produtividade, aliando NLP, APIs de IA e uma interface simples e moderna.
 
 ## ✨ Funcionalidades Principais
 
@@ -28,9 +28,8 @@ O projeto foi construído utilizando uma stack moderna de tecnologias web e de I
     * ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
     * ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) - Para a interatividade do seletor de tema e do upload de arquivos.
 * **Inteligência Artificial:**
-    * **Hugging Face API:** Utilizada para acessar modelos pré-treinados de classificação (zero-shot) e geração de texto.
-* **Deploy (Hospedagem):**
-    * **Render:** Plataforma de nuvem utilizada para hospedar a aplicação.
+    * **Hugging Face API:** Modelo facebook/bart-large-mnli para classificação de texto
+    * **Google Gemini API:** Geração automática de respostas em portuguê
 * **Ambiente de Desenvolvimento:**
     * **GitHub Codespaces:** Ambiente de desenvolvimento na nuvem para agilidade e portabilidade.
 
@@ -42,8 +41,8 @@ Para rodar este projeto em sua máquina, siga os passos abaixo:
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/MateusLima909/desafio-autou](https://github.com/MateusLima909/desafio-autou)
-    cd desafio-autou
+    git clone https://github.com/MateusLima909/email-classifier
+    cd email-classifier
     ```
 
 2.  **Crie e ative um ambiente virtual:**
@@ -64,9 +63,9 @@ Para rodar este projeto em sua máquina, siga os passos abaixo:
 
 4.  **Configure as variáveis de ambiente:**
     * Crie um arquivo chamado `.env` na raiz do projeto.
-    * Dentro dele, adicione sua chave de API da Hugging Face:
         ```
-        HF_API_TOKEN=sua_chave_de_api_aqui
+        HF_API_TOKEN=seu_token_da_huggingface
+        GOOGLE_API_KEY=sua_chave_da_api_google
         ```
 
 5.  **Execute a aplicação:**
@@ -77,6 +76,11 @@ Para rodar este projeto em sua máquina, siga os passos abaixo:
 A aplicação estará disponível em `http://127.0.0.1:5000`.
 
 ---
+
+## 📌 Observações Técnicas
+
+* A classificação é limitada aos 512 primeiros tokens por restrição do modelo de NLP.
+* A geração de resposta utiliza o modelo Gemini, garantindo respostas em português, curtas e profissionais.
 
 ## 👨‍💻 Desenvolvido por
 
