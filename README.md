@@ -1,58 +1,68 @@
-# 🚀 Email Classifier with AI
+# 📧 AI Email Classifier & Responder
 
-## 📋 Sobre o Projeto
+> **Classificação inteligente e respostas automáticas para emails usando Google Gemini AI.**
 
-O Email Classifier with AI é uma aplicação web que utiliza Inteligência Artificial para classificar emails como Produtivos ou Improdutivos e gerar automaticamente sugestões de resposta, de acordo com o contexto do email.
+![Status do Projeto](https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow)
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Flask](https://img.shields.io/badge/Flask-3.0-green)
+![Gemini AI](https://img.shields.io/badge/AI-Gemini_2.5_Flash-orange)
 
-O projeto foi desenvolvido com foco em resolver um problema real do dia a dia corporativo: triagem de emails e ganho de produtividade, aliando NLP, APIs de IA e uma interface simples e moderna.
+## 📖 Sobre o Projeto
 
-## ✨ Funcionalidades Principais
+O **AI Email Classifier** é uma aplicação web Full Stack desenvolvida para otimizar a produtividade no gerenciamento de emails.
 
-* **Análise de Texto e Arquivos:** Permite colar o texto de um email diretamente ou fazer o upload de arquivos `.txt` e `.pdf`.
-* **Classificação Inteligente:** Utiliza um modelo de Processamento de Linguagem Natural (NLP) da Hugging Face para categorizar o email.
-* **Geração de Resposta com IA:** Sugere uma resposta automática profissional e contextualmente apropriada para emails produtivos.
-* **Interface Moderna e Responsiva:** Design limpo, com uma ótima experiência tanto em desktop quanto em dispositivos móveis.
-* **Tema Claro e Escuro (Light/Dark Mode):** Inclui um seletor de tema animado para maior conforto visual, com a preferência do usuário salva localmente.
+A ferramenta utiliza a inteligência artificial do **Google Gemini (Modelo 2.5 Flash)** para ler o conteúdo de emails (via texto ou upload de arquivos PDF/TXT), classificar a urgência e o contexto, e gerar automaticamente uma sugestão de resposta profissional.
+
+### ✨ Funcionalidades Principais
+
+* **Classificação Inteligente:** Distingue automaticamente entre emails **Produtivos** (Trabalho, Projetos, Reuniões) e **Improdutivos** (Spam, Marketing, Social).
+* **Geração de Respostas:** Cria rascunhos de resposta contextualizados, adotando personas profissionais (ex: Assistente Executivo ou RH).
+* **Leitura de Arquivos:** Suporte para upload e análise de arquivos `.txt` e `.pdf` (extração de texto).
+* **Interface Moderna:** Design responsivo com suporte a **Dark Mode** e **Light Mode**.
+* **Alta Performance:** Otimizado com o modelo Gemini 2.5 Flash para respostas quase instantâneas.
+
+---
+
+## 📸 Screenshots
+
+
+|<img src="assets/print-dark.png" width="400" alt="Dark Mode">|<img src="assets/print-light.png" width="400" alt="Light Mode">|
+|:---:|:---:|
+|**Dark Mode**|**Light Mode**|
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-O projeto foi construído utilizando uma stack moderna de tecnologias web e de IA:
-
-* **Backend:**
-    * ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-    * ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white) - Para a construção do servidor web e da API.
-* **Frontend:**
-    * ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-    * ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-    * ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) - Para a interatividade do seletor de tema e do upload de arquivos.
-* **Inteligência Artificial:**
-    * **Hugging Face API:** Modelo facebook/bart-large-mnli para classificação de texto
-    * **Google Gemini API:** Geração automática de respostas em portuguê
-* **Ambiente de Desenvolvimento:**
-    * **GitHub Codespaces:** Ambiente de desenvolvimento na nuvem para agilidade e portabilidade.
+* **Back-end:** Python, Flask
+* **IA / LLM:** Google Gemini API (`google-generativeai`)
+* **Manipulação de Arquivos:** PyPDF2
+* **Front-end:** HTML5, CSS3 (Variáveis CSS para temas), JavaScript
+* **Ambiente:** Dotenv para gestão de variáveis de ambiente
 
 ---
 
-## 🚀 Como Executar o Projeto Localmente
+## 🚀 Como Executar o Projeto
 
-Para rodar este projeto em sua máquina, siga os passos abaixo:
+### Pré-requisitos
+
+* Python 3.x instalado.
+* Uma chave de API do Google AI Studio (Gemini).
+
+### Passo a Passo
 
 1.  **Clone o repositório:**
     ```bash
-    git clone https://github.com/MateusLima909/email-classifier
+    git clone [https://github.com/MateusLima909/email-classifier.git](https://github.com/MateusLima909/email-classifier.git)
     cd email-classifier
     ```
 
-2.  **Crie e ative um ambiente virtual:**
+2.  **Crie um ambiente virtual (Opcional, mas recomendado):**
     ```bash
-    # Windows
     python -m venv venv
-    .\venv\Scripts\activate
-
-    # macOS / Linux
-    python3 -m venv venv
+    # Windows
+    venv\Scripts\activate
+    # Linux/Mac
     source venv/bin/activate
     ```
 
@@ -61,27 +71,37 @@ Para rodar este projeto em sua máquina, siga os passos abaixo:
     pip install -r requirements.txt
     ```
 
-4.  **Configure as variáveis de ambiente:**
-    * Crie um arquivo chamado `.env` na raiz do projeto.
-        ```
-        HF_API_TOKEN=seu_token_da_huggingface
-        GOOGLE_API_KEY=sua_chave_da_api_google
+4.  **Configure a API Key:**
+    * Crie um arquivo `.env` na raiz do projeto.
+    * Adicione sua chave:
+        ```env
+        GEMINI_API_KEY=sua_chave_aqui_sem_aspas
         ```
 
 5.  **Execute a aplicação:**
     ```bash
     python app.py
     ```
-
-A aplicação estará disponível em `http://127.0.0.1:5000`.
+    * Acesse no navegador: `http://127.0.0.1:5000`
 
 ---
 
-## 📌 Observações Técnicas
+## 🗺️ Roadmap (Próximos Passos)
 
-* A classificação é limitada aos 512 primeiros tokens por restrição do modelo de NLP.
-* A geração de resposta utiliza o modelo Gemini, garantindo respostas em português, curtas e profissionais.
+Este projeto está em evolução constante! Aqui estão as atualizações planejadas para as próximas versões:
 
-## 👨‍💻 Desenvolvido por
+- [ ] **Deploy:** Publicação da aplicação em ambiente de produção (Render/Vercel).
+- [ ] **Testes Automatizados:** Implementação de testes unitários para garantir a estabilidade da classificação.
+- [ ] **Novas Categorias:** Adição de classificações mais granulares, como *"Lembrete de Atenção"* e *"Urgente"*.
+- [ ] **Histórico:** Salvar o histórico de emails analisados localmente.
+- [ ] **Upload de Imagens:** Suporte para OCR em prints de email usando a capacidade multimodal do Gemini.
 
-* **[Mateus Lima](www.linkedin.com/in/mateuslima-santos)**
+---
+
+## 🤝 Contribuição
+
+Sugestões e pull requests são bem-vindos! Sinta-se à vontade para abrir uma issue se encontrar algum problema.
+
+## 📝 Licença
+
+Desenvolvido por **[Mateus Lima](https://www.linkedin.com/in/mateuslimasantos)**.
