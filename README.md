@@ -53,7 +53,7 @@ A ferramenta utiliza a inteligência artificial do **Google Gemini (Modelo 2.5 F
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/MateusLima909/email-classifier.git](https://github.com/MateusLima909/email-classifier.git)
+    git clone https://github.com/MateusLima909/email-classifier.git
     cd email-classifier
     ```
 
