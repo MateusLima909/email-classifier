@@ -145,6 +145,12 @@ body {
   width: 100%;
 }
 
+.result-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* =============================================
    5. COMPONENTES (GLASS CARDS)
    ============================================= */
@@ -370,9 +376,10 @@ textarea::placeholder {
 }
 
 .result-card.animated-up {
+  flex: 1;
   justify-content: flex-start;
   min-height: 700px;
-  height: auto;
+  height: 100%;
 }
 
 .result-card::before {
