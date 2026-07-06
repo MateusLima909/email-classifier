@@ -90,7 +90,7 @@ Diferente de ferramentas simples, este projeto foca em **User Experience (UX)**,
 
 ## 🗺️ Roadmap de Evolução
 
-- [ ] **Structured Output:** Transição para respostas em JSON para extrair metadados (urgência, sentimento).
+- [X] **Structured Output:** Transição para respostas em JSON para extrair metadados (urgência, sentimento).
 - [ ] **Integração com Gmail API:** Leitura direta da caixa de entrada via OAuth2.
 - [ ] **Memória de Contexto (RAG):** Banco de vetores para aprender o tom de voz do usuário com base em emails passados.
 - [ ] **Persistência de Dados:** Histórico de análises salvo em banco de dados local (SQLite/PostgreSQL).
