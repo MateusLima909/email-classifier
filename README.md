@@ -34,63 +34,57 @@ Diferente de ferramentas simples, este projeto foca em **User Experience (UX)**,
 ---
 
 ## 🛠️ Tecnologias Utilizadas
-
 * **Back-end:** Python 3.12, Flask
-* **IA / LLM:** Google Gemini API (`google-generativeai`)
+* **IA / LLM:** Google Gemini API (`google-genai`)
 * **Front-end:** HTML5, CSS3 (Glassmorphism & CSS Grid), JavaScript (Vanilla)
 * **Ícones:** Lucide Icons
-* **Manipulação de Arquivos:** PyPDF2
+* **Manipulação de Arquivos:** pypdf
+* **Testes:** Pytest (unitários e mocks de integração com a API)
 * **Ambiente:** Dotenv para gestão de segredos e chaves de API
-
 ---
-
 ## 🚀 Como Executar o Projeto
-
 ### Pré-requisitos
-
 * Python 3.x instalado.
 * Chave de API do Google AI Studio.
-
 ### Passo a Passo
-
 1.  **Clone o repositório:**
-    ```bash
+```bash
     git clone https://github.com/MateusLima909/email-classifier.git
     cd email-classifier
-    ```
-
+```
 2.  **Ambiente Virtual:**
-    ```bash
+```bash
     python -m venv venv
     # Windows
     venv\Scripts\activate
     # Linux/Mac
     source venv/bin/activate
-    ```
-
+```
 3.  **Instalação:**
-    ```bash
+```bash
     pip install -r requirements.txt
-    ```
-
+```
 4.  **Variáveis de Ambiente:**
     * Crie um arquivo `.env` na raiz.
-    * Adicione sua chave:
-        ```env
+    * Adicione suas chaves:
+```env
+        FLASK_SECRET_KEY=sua_chave_secreta_aqui
         GEMINI_API_KEY=sua_chave_aqui
-        ```
-
+```
 5.  **Run:**
-    ```bash
+```bash
     python app.py
-    ```
+```
     * Acesse: `http://127.0.0.1:5000`
 
+### 🧪 Rodando os Testes
+```bash
+python -m pytest tests/ -v
+```
 ---
-
 ## 🗺️ Roadmap de Evolução
-
-- [X] **Structured Output:** Transição para respostas em JSON para extrair metadados (urgência, sentimento).
+- [X] **Structured Output:** Respostas em JSON com schema validado (classificação, confiança e sugestão).
+- [X] **Testes Automatizados:** Cobertura via Pytest para validação, formatação e integração mockada com a IA.
 - [ ] **Integração com Gmail API:** Leitura direta da caixa de entrada via OAuth2.
 - [ ] **Memória de Contexto (RAG):** Banco de vetores para aprender o tom de voz do usuário com base em emails passados.
 - [ ] **Persistência de Dados:** Histórico de análises salvo em banco de dados local (SQLite/PostgreSQL).
