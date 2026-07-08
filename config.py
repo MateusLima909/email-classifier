@@ -1,4 +1,5 @@
 import os
+import logging
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -14,3 +15,12 @@ class Config:
     def validate():
         if not Config.GEMINI_API_KEY:
             raise RuntimeError("GEMINI_API_KEY não encontrada no .env")
+    
+def setup_logging():
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s [%(levelname)s] $(names)s: %(message)s',
+        handlers=[
+            logging.StreamHandler() 
+        ]
+    )

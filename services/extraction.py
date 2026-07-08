@@ -1,7 +1,10 @@
 import io
+import logging
 from pathlib import Path
-import PyPDF2
+import pypdf
 from config import Config
+
+logger = logging.getLogger(__name__)
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -15,8 +18,8 @@ def extract_text(file):
         if ext == ".txt":
             return file.read().decode("utf-8")
         elif ext == ".pdf":
-            reader = PyPDF2.PdfReader(io.BytesIO(file.read()))
+            reader = pypdf.PdfReader(io.BytesIO(file.read()))
             return "".join(p.extract_text() or "" for p in reader.pages)
     except Exception as e:
-        print(f"Erro crítico na extração do arquivo: {e}")
+        logger.error(f"Erro crítico na extração do arquivo: {e}")
     return None

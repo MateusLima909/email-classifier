@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, flash
-from config import Config
+from config import Config, setup_logging
 from services.extraction import extract_text
 from services.ai_analysis import analyze_email_pro
 
+setup_logging()
 Config.validate()
 
 app = Flask(__name__)

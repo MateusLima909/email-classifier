@@ -1,9 +1,11 @@
 import re
 import json
-import google.generativeai as genai
+import logging
+from google import genai
 from config import Config
 
-genai.configure(api_key=Config.GEMINI_API_KEY)
+logger = logging.getLogger(__name__)
+client = genai.Client(api_key=Config.GEMINI_API_KEY)
 
 generation_config = {
     "temperature": 0.2,
@@ -21,12 +23,6 @@ generation_config = {
         "required": ["classification", "confidence", "suggestion"],
     },
 }
-
-gemini_model = genai.GenerativeModel(
-    model_name="gemini-2.5-flash",
-    generation_config=generation_config
-)
-
 
 def fix_spacing(text):
     return re.sub(r'([.,!?])([A-ZÀ-Ú])', r'\1 \2', text)
@@ -54,21 +50,14 @@ def analyze_email_pro(email_text):
     - Produtivo: Requer ação, decisão ou agendamento.
     - Improdutivo: Spam, marketing, newsletters, social ou sem contexto.
 
-    Se o email for "Produtivo", escreva a RESPOSTA no campo "suggestion" como se você fosse a pessoa 
+    Se o email for "Produtivo", escreva uma sugestão de RESPOSTA no campo "suggestion" como se você fosse a pessoa 
     respondendo o email diretamente ao remetente. Use tom profissional e cordial, primeira pessoa, 
     confirmando ou propondo uma ação concreta com base no conteúdo do email (ex: confirmar um horário, 
     pedir mais informações, agradecer e indicar próximo passo).
 
     NÃO descreva o que o email precisa. ESCREVA a resposta em si, pronta para ser enviada.
 
-    Exemplo de "suggestion" correta para um email pedindo reunião:
-    "Olá! Quarta-feira às 15h funciona bem para mim. Vou enviar o convite com a pauta do cronograma de implantação. Até lá!"
-
-    Ao escrever o campo "suggestion", separe parágrafos com uma quebra de linha (\\n\\n) e garanta que 
-    sempre haja espaço após pontuação final (ponto, vírgula) antes da próxima palavra ou parágrafo.
-    Nunca cole duas frases sem espaço ou quebra entre elas.
-
-    Se o email for "Improdutivo", o campo "suggestion" deve ser que não há sugestão de resposta.
+    Se o email for "Improdutivo", o campo "suggestion" deve retornar que não há sugestão de resposta.
 
     Email:
     <email>
@@ -78,11 +67,15 @@ def analyze_email_pro(email_text):
 
 
     try:
-        response = gemini_model.generate_content(prompt)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+            config=generation_config
+        )
         parsed = json.loads(response.text)
 
         if not validate_analysis(parsed):
-            print("Resposta da IA fora do formato esperado — possível manipulação.")
+            logger.warning("Resposta da IA fora do formato esperado — possível manipulação.")
             return None
 
         if parsed["classification"] == "Produtivo":
@@ -96,8 +89,8 @@ def analyze_email_pro(email_text):
             "suggestion": suggestion_text,
         }
     except (json.JSONDecodeError, KeyError, ValueError) as e:
-        print(f"Erro ao processar resposta da IA: {e}")
+        logger.error(f"Erro ao processar resposta da IA: {e}")
         return None
     except Exception as e:
-        print(f"Erro na API Gemini: {e}")
+        logger.error(f"Erro na API Gemini: {e}")
         return None
