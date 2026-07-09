@@ -8,6 +8,11 @@
 ![Gemini AI](https://img.shields.io/badge/AI-Gemini_2.5_Flash-orange)
 ![UI](https://img.shields.io/badge/UI-Glassmorphism-blueviolet)
 
+## 🔗 Demo ao vivo
+Acesse a aplicação em produção: **[email-classifier-afw7.onrender.com](https://email-classifier-afw7.onrender.com)**
+
+> ⚠️ Nota: o serviço está hospedado no plano gratuito do Render, que "dorme" após um período de inatividade. A primeira requisição pode levar de 30 a 60 segundos para responder enquanto o servidor é reativado.
+
 ## 📖 Sobre o Projeto
 
 O **AI Email Classifier** é uma aplicação web Full Stack de alto nível desenvolvida para transformar o gerenciamento de emails em uma tarefa fluida e inteligente. 
@@ -85,10 +90,10 @@ python -m pytest tests/ -v
 ## 🗺️ Roadmap de Evolução
 - [X] **Structured Output:** Respostas em JSON com schema validado (classificação, confiança e sugestão).
 - [X] **Testes Automatizados:** Cobertura via Pytest para validação, formatação e integração mockada com a IA.
+- [X] **Deploy:** Hospedagem em nuvem (Render).
 - [ ] **Integração com Gmail API:** Leitura direta da caixa de entrada via OAuth2.
 - [ ] **Memória de Contexto (RAG):** Banco de vetores para aprender o tom de voz do usuário com base em emails passados.
 - [ ] **Persistência de Dados:** Histórico de análises salvo em banco de dados local (SQLite/PostgreSQL).
-- [ ] **Deploy:** Hospedagem em nuvem (Render ou Vercel).
 
 ---
 
