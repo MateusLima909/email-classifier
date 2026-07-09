@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, flash
 from config import Config, setup_logging
 from services.extraction import extract_text
@@ -13,24 +14,19 @@ app.config['MAX_CONTENT_LENGTH'] = Config.MAX_CONTENT_LENGTH
 @app.route("/", methods=["GET", "POST"])
 def index():
     context = {"classification": None, "suggestion": None, "email_text": "", "confidence": None}
-
     if request.method == "POST":
         email_text = request.form.get("email_text", "")
         email_file = request.files.get("email_file")
-
         file_content = extract_text(email_file)
         if file_content:
             email_text = file_content
-
         context["email_text"] = email_text
-
         if email_text.strip():
             analysis = analyze_email_pro(email_text)
             if analysis:
                 context.update(analysis)
             else:
                 flash("Houve um erro na análise inteligente. Tente novamente.")
-
     return render_template("index.html", **context)
 
 @app.errorhandler(413)
@@ -39,4 +35,5 @@ def file_too_large(e):
     return render_template("index.html", classification=None, suggestion=None, email_text="", confidence=None), 413
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    debug_mode = os.getenv("FLASK_DEBUG", "False") == "True"
+    app.run(debug=debug_mode)
